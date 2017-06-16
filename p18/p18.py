@@ -31,6 +31,9 @@ NOTE: As there are only 16384 routes, it is possible to solve this problem by tr
  rows; it cannot be solved by brute force, and requires a clever method! ;o)
 """
 
+short_triangle="   3  7 4 2 4 6 8 5 9 3"
+
+
 input1 = "3 7 4 2 4 6 8 5 9 3"
 input2 = """75 95 64 17 47 82 18 35 87 10 20 04 82 47 65 19 01 23 75 03 34
 88 02 77 73 07 63 67 99 65 04 28 06 16 70 92 41 41 26 56 83 40 80 70 33 41 48 72 33 47 32 37 16 94 29
@@ -148,8 +151,6 @@ def convertStringToList(str):
       placeholder = ""
     else:
       placeholder += i
-  insert = int(placeholder)
-  list.append(insert)
   return list
 
 #for generating the nth triangle number
@@ -161,62 +162,41 @@ def tri_num_gen(place):
     num += 1
   return sum
 
-def list_to_rows(lst, rows):
-  pyramid = []
-  x = 0
-  place = 0
-
-  while place <= rows:
-    current = []
-    x = 0
-    while x < place:
-      current.append(lst.pop(0))
-      x += 1
-    pyramid. append(current)
-    place += 1
-  return pyramid
-
 
 #the number of rows * 99 is the max that any sum can be greater than another
 def greatestSumOfAnyPath(pyramid):
-  rows = 1
-  find_rows = 0
+  rowNumber = 0
+  item = 0
+  x = 1
   tri_list = convertStringToList(pyramid)
-
-  while find_rows < len(tri_list):
-    rows += 1
-    find_rows = tri_num_gen(rows)
-
-  solution = list_to_rows(tri_list, rows)
-
-  current_row = solution.pop(len(solution) - 2)
-
-  #SMALL TRIANGLES!!!
-
-  work_row = solution.pop(len(solution) - 1)
-  while len(solution) > 0:
-    x=0
-    while x < len(current_row):
-      current_row[x] = current_row[x] + max(work_row[x], work_row[x+1])
-      x += 1
-    work_row = current_row
-    current_row = solution.pop(len(solution) - 1)
-
-    #solution = list(map(lambda x: x+ max(), current_row))
+  sums = []
 
 
 
-  return work_row[0]
 
-#greatestSumOfAnyPath(input1)
 
-#print(len(convertStringToList(input1)))
-#print(tri_num_gen(len(convertStringToList(input1))))
+  while x < len(tri_list):
+    while item < x:
+      print "x"
+      print x
+      print "item"
+      print item
+      print "thing"
+      print(tri_list[item])
+      item+=1
+    x += 1
+    item = 0
+
+
+  return tri_list
+
+print(len(convertStringToList(input1)))
+print(tri_num_gen(len(convertStringToList(input1))))
 #print(convertStringToList(input1))
 print(greatestSumOfAnyPath(input1))
 #print(convertStringToList(input2))
-print(greatestSumOfAnyPath(input2))
-print(greatestSumOfAnyPath(input3))
+#print(greatestSumOfAnyPath(input2))
+#print(greatestSumOfAnyPath(input3))
 
 
 
